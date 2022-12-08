@@ -8,6 +8,15 @@
     ios_command:
       commands: "show ip bgp summary | i 10.200.200.2"
     register: "output_ios"
+
+  tasks:
+  - name: "TASK:1 - 'SHOW IP BGP SUMMARY'"
+    ios_command:
+      commands: "show ip route 10.200.200.2"
+    register: "output_2"
+
+
   - name: "TASK:2 - PRINT BGP OUTPUT"
     debug:
       msg: "{{ output_ios.stdout[0] }}"
+      msg: "{{ output_2.stdout[0] }}"
