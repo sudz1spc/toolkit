@@ -4,19 +4,20 @@
   connection: "network_cli"
   hosts: cisco
   tasks:
-  - name: "TASK:1 - 'SHOW IP BGP SUMMARY'"
+  - name: "1. BGP PEER STATUS"
     ios_command:
       commands: "show ip bgp summary | i 10.200.200.2"
     register: "output_ios"
 
-  tasks:
-  - name: "TASK:1 - 'SHOW IP BGP SUMMARY'"
+  - name: "PRINT OUTPUT_1"
+    debug:
+      msg: "{{ output_ios.stdout }}"
+
+  - name: "2. routed interface for the peered IP"
     ios_command:
       commands: "show ip route 10.200.200.2"
     register: "output_2"
 
-
-  - name: "TASK:2 - PRINT BGP OUTPUT"
+  - name: "PRINT OUTPUT_2"
     debug:
-      msg: "{{ output_ios.stdout[0] }}"
-      msg: "{{ output_2.stdout[0] | replace('\\n', '\n')}}"
+      msg: "{{ output_2.stdout }}"
