@@ -1,9 +1,9 @@
 ---
 collections:
-- cisco.ios
-- arista.eos
-- junipernetworks.junos
-- awx.awx
-- community.general.mail
-- mail
-- community.general
+  - cisco.ios
+  - arista.eos
+  - junipernetworks.junos
+  - awx.awx
+  - community.general.mail
+  - mail
+  - community.general
