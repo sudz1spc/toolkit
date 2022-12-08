@@ -64,7 +64,7 @@
 #  hosts: cisco
 
 #  tasks:
-  - name: Send email to the peering ISP
+ - name: Send email to the peering ISP
     mail:
       host: smtp.gmail.com
       port: 587
