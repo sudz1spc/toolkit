@@ -19,4 +19,4 @@
   - name: "TASK:2 - PRINT BGP OUTPUT"
     debug:
       msg: "{{ output_ios.stdout[0] }}"
-      msg: "{{ output_2.stdout[0] | replace('\\n', '\n' }}"
+      msg: "{{ output_2.stdout[0] | replace('\\n', '\n')}}"
