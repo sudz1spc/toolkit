@@ -4,3 +4,4 @@ collections:
 - arista.eos
 - junipernetworks.junos
 - awx.awx
+- mail
