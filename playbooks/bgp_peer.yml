@@ -53,6 +53,7 @@
          {{ result.results[3].stdout }}"
 
 - name: Email
+  hosts: cisco
   vars:
    - gmail_password: !vault |
       $ANSIBLE_VAULT;1.1;AES256
@@ -63,8 +64,7 @@
       33616436323062666666356130366637393233303137343736646632633037306437
   tasks:
   - name: Send email to the peering ISP
-    hosts: cisco
-    mail:
+      mail:
       host: smtp.gmail.com
       port: 587
       password: "{{ gmail_password }}"
