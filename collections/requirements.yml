@@ -4,5 +4,6 @@ collections:
 - arista.eos
 - junipernetworks.junos
 - awx.awx
-- community.general
+- community.general.mail
 - mail
+- community.general
