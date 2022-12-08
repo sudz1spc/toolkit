@@ -63,7 +63,7 @@
 #- name: Email
 #  hosts: cisco
 
-  tasks:
+#  tasks:
   - name: Send email to the peering ISP
     mail:
       host: smtp.gmail.com
