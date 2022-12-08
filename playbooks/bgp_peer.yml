@@ -1,26 +1,82 @@
 ---
-- name: "PLAY:1 - GET BGP SUMMARY"
-  gather_facts: False
-  connection: "network_cli"
+#- name: "PLAY:1 - GET BGP SUMMARY"
+#  gather_facts: False
+#  connection: "network_cli"
+#  hosts: cisco
+#  tasks:
+#  - name: "1. BGP PEER STATUS"
+#    ios_command:
+#      commands: 
+#      - "show ip bgp summary | i 10.200.200.2"
+#      - "sh ip bgp all sum"
+#      - "show ip route 10.200.200.2"
+#    register: "output_ios"
+
+#  - name: "PRINT OUTPUT_1"
+#    debug:
+#      msg: "output 1 - {{ output_ios.stdout[0] }}"
+#      msg: "output 2 - {{ output_ios.stdout[1] }}"
+#      msg: "output 3 - {{ output_ios.stdout[2] }}"
+
+#Ansible-Playbook to display Output of multiple show commands
+
+- name: Display Output of multiple show commands
   hosts: cisco
+  gather_facts: no
+  connection: network_cli
+  become: no
+  become_method: enable
   tasks:
-  - name: "1. BGP PEER STATUS"
-    ios_command:
-      commands: 
-      - "show ip bgp summary | i 10.200.200.2"  
-      - "sh ip bgp all sum"
-      - "show ip route 10.200.200.2"
-    register: "output_ios"
+   - name: Get the config
+     cli_command:
+      command: "{{ item }}"
+     register: result
 
-  - name: "PRINT OUTPUT_1"
-    debug:
-      msg: "{{ output_ios.stdout }}"
+     with_items:
+       - show ip bgp summary | i 10.200.200.2
+       - show ip route 10.200.200.2
+       - sh ip bgp all sum
+       - sh int Tu1
 
-  - name: "2. routed interface for the peered IP"
-    ios_command:
-      commands: "show ip route 10.200.200.2"
-    register: "output_2"
+   - debug:
+       msg:
+         - "BGP Peer status
+         {{ result.results[0].stdout }}"
 
-  - name: "PRINT OUTPUT_2"
-    debug:
-      msg: "{{ output_2.stdout }}"
+         - "routed interface for the peered IP 
+         {{ result.results[1].stdout }}"
+
+         - "all peer checks
+         {{ result.results[2].stdout }}"
+
+         - "interface status and health
+         {{ result.results[3].stdout }}"
+
+   - name: Email
+     vars:
+      - gmail_password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        66633466383633646539366236643763343162636465313636336335653638326164373538323132
+        6437303732343565393434663238333230313033313531660a663036613765383839336435303866
+        31626562393939623666663737613163653165656236333831383130353563613334373633323530
+        6238373836613837640a323863393566613765613337346432356332616337353965633064656562
+        31316136613532396530373736333162303238643837633237663934316534633930
+     tasks:
+     - name: Send email to the peering ISP
+       mail:
+        host: smtp.gmail.com
+        port: 587
+        password: "{{ gmail_password }}"
+        to: prawinkn89@gmail.com
+        from: prawinkn89@gmail.com
+        username: prawinkn89@gmail.com
+        subject: Test
+        body: 'test'
+       delegate_to: localhost
+
+       
+
+# Debug output can also be displayed using following lines
+#  - debug:
+#      msg: "{{ item.stdout_lines }}"
+#    with_item
