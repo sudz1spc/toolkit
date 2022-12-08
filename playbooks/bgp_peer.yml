@@ -52,27 +52,27 @@
          - "interface status and health
          {{ result.results[3].stdout }}"
 
-   - name: Email
-     vars:
-      - gmail_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          34393437383734653337613866643731646434363435343138653236383336663465316261356530
-          3332376363643365383961316638313363643837646630340a393439376130613438343938636637
-          64396265373965663430383532393061646163306362386462653465323733326231396538383830
-          3132616662643832640a333130356635376333383265303932323432326166633861663431643533
-          39393633383237353536303536343931343262326332323439363432383264306131
-     tasks:
-     - name: Send email to the peering ISP
-       mail:
-        host: smtp.gmail.com
-        port: 587
-        password: "{{ gmail_password }}"
-        to: prawinkn89@gmail.com
-        from: prawinkn89@gmail.com
-        username: prawinkn89@gmail.com
-        subject: Test
-        body: 'test'
-       delegate_to: localhost
+- name: Email
+  vars:
+   - gmail_password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      34393437383734653337613866643731646434363435343138653236383336663465316261356530
+      3332376363643365383961316638313363643837646630340a393439376130613438343938636637
+      64396265373965663430383532393061646163306362386462653465323733326231396538383830
+      3132616662643832640a333130356635376333383265303932323432326166633861663431643533
+      39393633383237353536303536343931343262326332323439363432383264306131
+  tasks:
+  - name: Send email to the peering ISP
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      password: "{{ gmail_password }}"
+      to: prawinkn89@gmail.com
+      from: prawinkn89@gmail.com
+      username: prawinkn89@gmail.com
+      subject: Test
+      body: 'test'
+    delegate_to: localhost
 
 
 
