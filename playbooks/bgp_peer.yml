@@ -1,22 +1,4 @@
 ---
-#- name: "PLAY:1 - GET BGP SUMMARY"
-#  gather_facts: False
-#  connection: "network_cli"
-#  hosts: cisco
-#  tasks:
-#  - name: "1. BGP PEER STATUS"
-#    ios_command:
-#      commands: 
-#      - "show ip bgp summary | i 10.200.200.2"
-#      - "sh ip bgp all sum"
-#      - "show ip route 10.200.200.2"
-#    register: "output_ios"
-
-#  - name: "PRINT OUTPUT_1"
-#    debug:
-#      msg: "output 1 - {{ output_ios.stdout[0] }}"
-#      msg: "output 2 - {{ output_ios.stdout[1] }}"
-#      msg: "output 3 - {{ output_ios.stdout[2] }}"
 
 #Ansible-Playbook to display Output of multiple show commands
 
@@ -75,10 +57,3 @@
       subject: Test
       body: 'test'
      delegate_to: localhost
-
-
-
-# Debug output can also be displayed using following lines
-#  - debug:
-#      msg: "{{ item.stdout_lines }}"
-#    with_item
