@@ -56,9 +56,10 @@
        password: gmjjsdnhtrbcvzzm
        to: "prawinkn89@gmail.com"
        subject: "BGP peering went down"
-       body: "Hi All, 
-       We observe below peer is showing down on {{PE_rtr1}}. Please check the BGP Peer status.
-       {{ result.results[0].stdout }}
-       {{ result.results[1].stdout }}
-       {{ result.results[2].stdout }}
-       {{ result.results[3].stdout }}"
+       subtype: html
+       body: <h1>Hi All,</h1> 
+        <p> We observe below peer is showing down on {{PE_rtr1}}. Please check the BGP Peer status.</p>
+        <p> {{ result.results[0].stdout }} </p>
+        <p> {{ result.results[1].stdout }} </p>
+        <p> {{ result.results[2].stdout }} </p>
+        <p> {{ result.results[3].stdout }} </p>
