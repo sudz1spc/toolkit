@@ -57,10 +57,10 @@
        to: "prawinkn89@gmail.com"
        subject: "BGP peering went down"
        subtype: html
-       body: <h1>Hi All,</h1> 
+       body: <h1>Hello,</h1> 
         <p> We observe below peer is showing down on {{PE_rtr1}}. Please check the BGP Peer status.</p>
         <h2> BGP Peer Status - </h2>
-        <p> {{ result.results[0].stdout }} </p>
+        <p style="color:red" > {{ result.results[0].stdout }} </p>
         <h2> Routed interface for the peered IP - </h2>
         <p> {{ result.results[1].stdout }} </p>
         <h2> All peer checks - </h2>
