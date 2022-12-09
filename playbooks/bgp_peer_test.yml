@@ -69,3 +69,4 @@
         <p> {{ result.results[2].stdout }} </p>
         <h2> Interface status and health - </h2>
         <p> {{ result.results[3].stdout }} </p>
+        <p> From Network Operations </p>
