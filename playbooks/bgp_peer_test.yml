@@ -59,7 +59,11 @@
        subtype: html
        body: <h1>Hi All,</h1> 
         <p> We observe below peer is showing down on {{PE_rtr1}}. Please check the BGP Peer status.</p>
+        <h2> BGP Peer Status </h2>
         <p> {{ result.results[0].stdout }} </p>
+        <h2> routed interface for the peered IP </h2>
         <p> {{ result.results[1].stdout }} </p>
+        <h2> all peer checks </h2>
         <p> {{ result.results[2].stdout }} </p>
+        <h2> interface status and health </h2>
         <p> {{ result.results[3].stdout }} </p>
