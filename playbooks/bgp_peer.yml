@@ -51,6 +51,18 @@
          - "{{ result.results[3].stdout }}"
          - "===================================" 
 
+
+   - name: Send email to the peering ISP
+     connection: local
+     mail:
+       host: smtp.gmail.com
+       port: 587 
+       username: "prawinkn89@gmail.com"
+       password: gmjjsdnhtrbcvzzm
+       to: "prawinkn89@gmail.com"
+       subject: "BGP peering went down"
+       body: "BGP Peer status {{ result.results[0].stdout }}"
+
 #- name: Email
 #  hosts: cisco
 
