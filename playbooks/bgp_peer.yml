@@ -1,62 +1,51 @@
 ---
-
 #Ansible-Playbook to display Output of multiple show commands
-
 - name: Display Output of multiple show commands
   hosts: cisco
   gather_facts: no
   connection: network_cli
   become: no
   become_method: enable
-  vars:
-    gmail_password: !vault |
-      $ANSIBLE_VAULT;1.1;AES256
-      65383038616366343738383033356637383730653934363339643635356136343132663932313438
-      3164626432363330326165616338656132353233393932380a353061646333643562333262613930
-      63386135346265633662386536363234383431386431303265366236396635646130653633383531
-      3635656461626639300a356263363166353134633739336564396662343835663362356239666631
-      33616436323062666666356130366637393233303137343736646632633037306437
+#  vars:
+#    gmail_password: !vault |
+#      $ANSIBLE_VAULT;1.1;AES256
+#      65383038616366343738383033356637383730653934363339643635356136343132663932313438
+#      3164626432363330326165616338656132353233393932380a353061646333643562333262613930
+#      63386135346265633662386536363234383431386431303265366236396635646130653633383531
+#      3635656461626639300a356263363166353134633739336564396662343835663362356239666631
+#      33616436323062666666356130366637393233303137343736646632633037306437
   tasks:
    - name: Get the config
      cli_command:
       command: "{{ item }}"
      register: result
-
      with_items:
        - show ip bgp summary | i 10.200.200.2
        - show ip route 10.200.200.2
        - sh ip bgp all sum
        - sh int Tu1
-
    - debug:
        msg:
-
          - "==================================="        
          - "BGP Peer status :::::"
          - "{{ result.results[0].stdout }} "
-
          - "===================================" 
-
          - "routed interface for the peered IP :::::"
          - "{{ result.results[1].stdout }}"
-
          - "===================================" 
-
          - "all peer checks :::::"
          - "{{ result.results[2].stdout }}"
-
          - "===================================" 
-
          - "interface status and health :::::"
          - "{{ result.results[3].stdout }}"
          - "===================================" 
 
-
    - name: Send email to the peering ISP
      connection: local
      vars: 
-       - rtr1: 
-           10.200.200.2
+       - PE_rtr1: 
+           PE_rtr1_10.200.200.2
+       - circuit id: XYZ
      mail:
        host: smtp.gmail.com
        port: 587 
@@ -65,21 +54,36 @@
        to: "prawinkn89@gmail.com"
        subject: "BGP peering went down"
        body: "Hi ISP Provider, 
-       We observe below peer is showing down on {{rtr1}}. Please check the BGP Peer status {{ result.results[0].stdout }}"
+       We observe below peer is showing down on {{rtr1}}. Please check the BGP Peer status."
+       "==================================="
+       "{{ result.results[0].stdout }}"
+       "==================================="
+       "{{ result.results[1].stdout }}"
+       "===================================="
+       "{{ result.results[2].stdout }}"
+       "===================================="
+       " {{ result.results[3].stdout }}"
 
-#- name: Email
-#  hosts: cisco
-
-#  tasks:
-#   - name: Send email to the peering ISP
-#    mail:
-#      host: smtp.gmail.com
-#      port: 587
-#      password: "{{ gmail_password }}"
-#      to: prawinkn89@gmail.com
-#      from: prawinkn89@gmail.com
-#      username: prawinkn89@gmail.com
-#      subject: Test
-#     body: 'test'
-#     delegate_to: localhost
-
+   - name: Send email to Customer Experience
+     connection: local
+     vars: 
+       - CE_rtr1: 
+           CE_rtr1_10.200.200.1
+       - circuit id: XYZ
+     mail:
+       host: smtp.gmail.com
+       port: 587 
+       username: "prawinkn89@gmail.com"
+       password: gmjjsdnhtrbcvzzm
+       to: "prawinkn89@gmail.com"
+       subject: "BGP peering went down"
+       body: "Hi CX Team, 
+       We observe below peer is showing down on {{rtr1}}. Please check the BGP Peer status."
+       "==================================="
+       "{{ result.results[0].stdout }}"
+       "==================================="
+       "{{ result.results[1].stdout }}"
+       "===================================="
+       "{{ result.results[2].stdout }}"
+       "===================================="
+       " {{ result.results[3].stdout }}"
