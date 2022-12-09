@@ -48,16 +48,16 @@
 
    - debug:
        msg:
-         - "BGP Peer status
+         - "BGP Peer status :::::
          {{ result.results[0].stdout }}"
 
-         - "routed interface for the peered IP 
+         - "routed interface for the peered IP :::::
          {{ result.results[1].stdout }}"
 
-         - "all peer checks
+         - "all peer checks :::::
          {{ result.results[2].stdout }}"
 
-         - "interface status and health
+         - "interface status and health :::::
          {{ result.results[3].stdout }}"
 
 #- name: Email
