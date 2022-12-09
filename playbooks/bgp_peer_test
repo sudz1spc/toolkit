@@ -1,0 +1,64 @@
+---
+
+#Ansible-Playbook to display Output of multiple show commands
+
+- name: Display Output of multiple show commands
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+  become: no
+  become_method: enable
+  tasks:
+   - name: Get the config
+     cli_command:
+      command: "{{ item }}"
+     register: result
+
+     with_items:
+       - show ip bgp summary | i 10.200.200.2
+       - show ip route 10.200.200.2
+       - sh ip bgp all sum
+       - sh int Tu1
+
+   - debug:
+       msg:
+
+         - "==================================="        
+         - "BGP Peer status :::::"
+         - "{{ result.results[0].stdout }} "
+
+         - "===================================" 
+
+         - "routed interface for the peered IP :::::"
+         - "{{ result.results[1].stdout }}"
+
+         - "===================================" 
+
+         - "all peer checks :::::"
+         - "{{ result.results[2].stdout }}"
+
+         - "===================================" 
+
+         - "interface status and health :::::"
+         - "{{ result.results[3].stdout }}"
+         - "===================================" 
+  
+   - name: Send email to the peering ISP/CX
+     connection: local
+     vars: 
+       - PE_rtr1: 
+           PE_rtr1_10.200.200.2
+
+     mail:
+       host: smtp.gmail.com
+       port: 587 
+       username: "prawinkn89@gmail.com"
+       password: gmjjsdnhtrbcvzzm
+       to: "prawinkn89@gmail.com"
+       subject: "BGP peering went down"
+       body: "Hi All, 
+       We observe below peer is showing down on {{PE_rtr1}}. Please check the BGP Peer status.
+       {{ result.results[0].stdout }}
+       {{ result.results[1].stdout }}
+       {{ result.results[2].stdout }}
+       {{ result.results[3].stdout }}"
