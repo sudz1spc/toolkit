@@ -48,8 +48,7 @@
      vars: 
        - PE_rtr1: 
            PE_rtr1_10.200.200.2
-       - Ckt_id: 
-           XYZ-123 
+
 
      mail:
        host: smtp.gmail.com
@@ -60,7 +59,7 @@
        subject: "BGP peering went down"
        subtype: html
        body: <h1>Hello,</h1> 
-        <p> We observe below peer is showing down on {{PE_rtr1}} , {{ckt_id}}. Please check the BGP Peer status.</p>
+        <p> We observe below peer is showing down on {{PE_rtr1}} , ckt id - xyz. Please check the BGP Peer status.</p>
         <h2> BGP Peer Status - </h2>
         <p style="color:red" > {{ result.results[0].stdout }} </p>
         <h2> Routed interface for the peered IP - </h2>
