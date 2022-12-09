@@ -30,30 +30,40 @@
 
    - debug:
        msg:
-         - "BGP Peer status :::::
-         {{ result.results[0].stdout }}"
 
-         - "routed interface for the peered IP :::::
-         {{ result.results[1].stdout }}"
+         - "==================================="        
+         - "BGP Peer status :::::"
+         - "{{ result.results[0].stdout }} "
 
-         - "all peer checks :::::
-         {{ result.results[2].stdout }}"
+         - "===================================" 
 
-         - "interface status and health :::::
-         {{ result.results[3].stdout }}"
+         - "routed interface for the peered IP :::::"
+         - "{{ result.results[1].stdout }}"
+
+         - "===================================" 
+
+         - "all peer checks :::::"
+         - "{{ result.results[2].stdout }}"
+
+         - "===================================" 
+
+         - "interface status and health :::::"
+         - "{{ result.results[3].stdout }}"
+         - "===================================" 
 
 #- name: Email
 #  hosts: cisco
 
 #  tasks:
-   - name: Send email to the peering ISP
-     mail:
-      host: smtp.gmail.com
-      port: 587
-      password: "{{ gmail_password }}"
-      to: prawinkn89@gmail.com
-      from: prawinkn89@gmail.com
-      username: prawinkn89@gmail.com
-      subject: Test
-      body: 'test'
-     delegate_to: localhost
+#   - name: Send email to the peering ISP
+#    mail:
+#      host: smtp.gmail.com
+#      port: 587
+#      password: "{{ gmail_password }}"
+#      to: prawinkn89@gmail.com
+#      from: prawinkn89@gmail.com
+#      username: prawinkn89@gmail.com
+#      subject: Test
+#     body: 'test'
+#     delegate_to: localhost
+
