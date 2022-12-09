@@ -64,8 +64,8 @@
 #  hosts: cisco
 
 #  tasks:
-   - name: Send email to the peering ISP
-     mail:
+  - name: Send email to the peering ISP
+    mail:
       host: smtp.gmail.com
       port: 587
       password: "{{ gmail_password }}"
@@ -74,7 +74,7 @@
       username: prawinkn89@gmail.com
       subject: Test
       body: 'test'
-     delegate_to: localhost
+    delegate_to: localhost
 
 
 
