@@ -54,6 +54,9 @@
 
    - name: Send email to the peering ISP
      connection: local
+     vars: 
+       - rtr1: 
+           10.200.200.2
      mail:
        host: smtp.gmail.com
        port: 587 
@@ -61,7 +64,8 @@
        password: gmjjsdnhtrbcvzzm
        to: "prawinkn89@gmail.com"
        subject: "BGP peering went down"
-       body: "BGP Peer status {{ result.results[0].stdout }}"
+       body: "Hi ISP Provider, 
+       We observe below peer is showing down on {{rtr1}}. Please check the BGP Peer status {{ result.results[0].stdout }}"
 
 #- name: Email
 #  hosts: cisco
